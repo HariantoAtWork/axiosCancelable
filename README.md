@@ -113,13 +113,16 @@ fourthRequest
 // Note: The `thirdRequest` gets aborted
 ```
 
-## How to use - axiosCancelable.get - or get | delete | head | options
+## How to use - axiosCancelable
 
 ```js
 import axiosCancelable, { isCancel } from 'axioscancelable'
 ```
 
+### axiosCancelable.get - or get | delete | head | options
+
 ```js
+// axiosCancelable.get(url, [params], [config])
 const getData = axiosCancelable.get()
 
 // firstRequest
@@ -137,7 +140,30 @@ getData('https://api.sylo.space/test/axioscancelable/data', {id: [1,2,3]})
 // Note: `firstRequest` gets aborted
 ```
 
+### axiosCancelable.post - or post | put | patch
 
+```js
+import axiosCancelable, { isCancel } from 'axioscancelable'
+```
+
+```js
+// axiosCancelable.post(url, data, [config])
+const postData = axiosCancelable.post()
+
+// firstRequest
+postData('https://api.sylo.space/test/axioscancelable/data', {id: 17})
+  .catch(error => {
+    if (isCancel(error)) {
+      console.log('Request aborted firstRequest')
+    } else {
+      console.error(error)
+    }
+  })
+// secondRequest
+postData('https://api.sylo.space/test/axioscancelable/data', {id: [1,2,3]})
+  .then(console.log.bind(console))
+// Note: `firstRequest` gets aborted
+```
 
 
 ## How to use - axios
