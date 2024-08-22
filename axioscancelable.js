@@ -12,6 +12,8 @@ const methodsWithData = [
   'patchForm'
 ]
 
+export const isCancel = axios.isCancel.bind(axios)
+
 export class CancelablePromise {
   constructor(executor) {
     this.controller = new AbortController()
@@ -23,7 +25,6 @@ export class CancelablePromise {
   }
 
   then(onFulfilled, onRejected) {
-    const self = this
     return this.promise.then(onFulfilled, onRejected)
   }
 
@@ -58,7 +59,6 @@ export const factoryAxioxCancelable = function (defaultConfig = {}) {
 }
 
 const axiosCancelable = {
-  CancelablePromise,
   axios(defaultConfig = {}) {
     const state = { controller: new AbortController() }
 
