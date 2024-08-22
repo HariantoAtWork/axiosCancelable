@@ -5,7 +5,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rollup axioscancelable.js --file index.js --format iife",
+    "publish": "npm publish --access public"
   },
   "repository": {
     "type": "git",
@@ -25,5 +26,8 @@
   "dependencies": {
     "axios": "^1.7.4",
     "query-string": "^9.1.0"
+  },
+  "devDependencies": {
+    "rollup": "^4.21.0"
   }
 }
