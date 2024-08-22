@@ -4,6 +4,9 @@
   "description": "Axios with CancelablePromise cancelation",
   "type": "module",
   "main": "index.js",
+  "files": [
+    "index.js"
+  ],
   "scripts": {
     "build": "babel src -d dist",
     "rollup": "rollup src/axioscancelable.js --file dist/index.js --format iife",
