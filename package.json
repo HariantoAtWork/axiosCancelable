@@ -1,11 +1,12 @@
 {
   "name": "@harianto/axioscancelable",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Axios with CancelablePromise cancelation",
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "build": "rollup axioscancelable.js --file index.js --format iife",
+    "build": "babel src -d dist",
+    "rollup": "rollup src/axioscancelable.js --file dist/index.js --format iife",
     "publish": "npm publish --access public"
   },
   "repository": {
@@ -24,10 +25,14 @@
   },
   "homepage": "https://github.com/HariantoAtWork/axiosCancelable#readme",
   "dependencies": {
+    "@harianto/axioscancelable": "^1.0.3",
     "axios": "^1.7.4",
     "query-string": "^9.1.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.24.8",
+    "@babel/core": "^7.25.2",
+    "@babel/preset-env": "^7.25.4",
     "rollup": "^4.21.0"
   }
 }
