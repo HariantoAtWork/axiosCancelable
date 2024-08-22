@@ -60,7 +60,7 @@ secondRequest
     }
   })
 
-// The `firstRequest` gets aborted
+// Note: The `firstRequest` gets aborted
 ```
 
 ### Method: POST
@@ -110,32 +110,34 @@ fourthRequest
     }
   })
 
-// The `thirdRequest` gets aborted
+// Note: The `thirdRequest` gets aborted
 ```
 
-## How to use - get
-```js
-import axiosCancelable, { factoryAxioxCancelable } from 'axioscancelable'
-
-```
+## How to use - axiosCancelable.get - or get | delete | head | options
 
 ```js
-let controDataRequest = Promise.resolve()
-
-const retrieveData = (url, params) => {
-  retrieveDataRequest.cancel()
-  retrieveDataRequest = axiosBluebird.get(url, params)
-  return retrieveDataRequest
-    .then(json => json.data)
-    .catch(console.error.bind(console, "FAIL - retrieveData:"))
-}
+import axiosCancelable, { isCancel } from 'axioscancelable'
 ```
 
 ```js
-retrieveData('http://api.sylo.space/api/valtech/cases', {id: 17})
-retrieveData('http://api.sylo.space/api/valtech/cases?id=40', {id: [1,2,3]}) // previous progressing queue will cancel
+const getData = axiosCancelable.get()
+
+// firstRequest
+getData('https://api.sylo.space/test/axioscancelable/data', {id: 17})
+  .catch(error => {
+    if (isCancel(error)) {
+      console.log('Request aborted firstRequest')
+    } else {
+      console.error(error)
+    }
+  })
+// secondRequest
+getData('https://api.sylo.space/test/axioscancelable/data', {id: [1,2,3]})
   .then(console.log.bind(console))
+// Note: `firstRequest` gets aborted
 ```
+
+
 
 
 ## How to use - axios
