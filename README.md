@@ -166,72 +166,87 @@ postData('https://api.sylo.space/test/axioscancelable/data', {id: [1,2,3]})
 ```
 
 
-## How to use - axios
+## How to use - axios | Factory
 
 > Parameters as Object in axios [documentation](https://www.npmjs.com/package/axios)
 
 > Parameters as String not supported
 
-```js
-const axiosBluebird = require("axiosbluebird")
-const Promise = axiosBluebird.Promise
-```
 
 ```js
-let axiosDataRequest = Promise.resolve()
+import axiosCancelable, { isCancel } from 'axioscancelable'
 
-const axiosData = requestConfig => {
-  axiosDataRequest.cancel()
-  axiosDataRequest = axiosBluebird.axios(requestConfig)
-  return axiosDataRequest
-    .catch(console.error.bind(console, "FAIL - axiosData:"))
-}
+// axiosCancelable.axios(config)
+const axiosData = axiosCancelable.axios()
 ```
 
 ```js
 // 1st request
 axiosData({
-  method: "post",
-  url: "/user/12345",
+  method: 'post',
+  url: '/user/12345',
   data: {
-    firstName: "Fred",
-    lastName: "Flintstone"
+    firstName: 'Fred',
+    lastName: 'Flintstone'
   }
 })
 
 // 2nd request
 axiosData({
-  method: "get",
-  url: "http://bit.ly/2mTM3nY",
-  responseType: "stream" })
-    .then(response => response.data.pipe(fs.createWriteStream("ada_lovelace.jpg"))
-) // previous progressing queue will be canceled
+  method: 'get',
+  url: 'http://bit.ly/2mTM3nY',
+  responseType: 'stream' 
+})
+  .then(
+    response => response.data.pipe(fs.createWriteStream("ada_lovelace.jpg"))
+  ) // previous progressing queue will be canceled
 ```
 
 > `responseType: 'stream'` not yet tested
 
+### Getting Data Response
+
+```js
+const axiosRequest = axiosCancelable.axios()
+// 1st request
+axiosRequest({
+  method: 'post',
+  url: '/user/12345',
+  data: {
+    firstName: 'Fred',
+    lastName: 'Flintstone'
+  }
+})
+  .then(({data}) => data)
+  .catch(error => {
+    if (isCancel(error)) {
+      console.log('Request aborted')
+    } else {
+      console.error(error)
+    }
+  })
+```
+
 
 ## Methods
-
-Promise: Bluebird Promise with Cancelation enabled
 
 axios ( _requestConfig_: Object ): Request with configuration
 ___
 
-delete ( _url_: String [, _params_: Object] ): Axios request with DELETE method
+delete ( _url_: String [, _params_: Object] [, _config_: Object] ): Axios request with DELETE method
 
-get ( _url_: String [, _params_: Object] ): Axios request with GET method
+get ( _url_: String [, _params_: Object] [, _config_: Object] ): Axios request with GET method
 
-head ( _url_: String [, _params_: Object] ): Axios request with HEAD method
+head ( _url_: String [, _params_: Object] [, _config_: Object] ): Axios request with HEAD method
 
-options ( _url_: String [, _params_: Object] ): Axios request with OPTIONS method
+options ( _url_: String [, _params_: Object] [, _config_: Object] ): Axios request with OPTIONS method
 ___
 
-post ( _url_: String, _params_: Object ): Axios request with POST method
+post ( _url_: String, _data_: Object [, _config_: Object] ): Axios request with POST method
 
-put ( _url_: String, _params_: Object ): Axios request with PUT method
+put ( _url_: String, _data_: Object [, _config_: Object] ): Axios request with PUT method
 
-patch ( _url_: String, _params_: Object ): Axios request with PATCH method
+patch ( _url_: String, _data_: Object [, _config_: Object] ): Axios request with PATCH method
 
 
 ## NOTE!
