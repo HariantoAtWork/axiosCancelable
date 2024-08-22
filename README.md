@@ -13,15 +13,17 @@ Axios with custom CancelablePromise cancelation
 import { factoryAxioxCancelable, isCancel } from 'axioscancelable'
 ```
 
+### method: GET
+
 ```js
-const defaultConfig = {
+const getDefaultConfig = {
   method: 'get',
   url: 'https://api.sylo.space/test/axioscancelable/data'
 }
 
-const getData = factoryAxioxCancelable(defaultConfig)
+const getData = factoryAxioxCancelable(getDefaultConfig)
 
-// See Axios Config 
+// See Axios Config: params
 const firstRequest = getData({
   params: {
     id: 12345
@@ -59,6 +61,56 @@ secondRequest
   })
 
 // The `firstRequest` gets aborted
+```
+
+### Method: POST
+
+```js
+const postDefaultConfig = {
+  method: 'post',
+  url: 'https://api.sylo.space/test/axioscancelable/data'
+}
+
+const postData = factoryAxioxCancelable(postDefaultConfig)
+
+// See Axios Config: data
+const thirdRequest = postData({
+  data: {
+    id: 12345
+  }
+})
+
+thirdRequest
+  .then(data => {
+    console.log('SUCCESS thirdRequest!!!', data)
+  })
+  .catch(error => {
+    if (isCancel(error)) {
+      console.log('Request aborted thirdRequest')
+    } else {
+      console.error(error)
+    }
+  })
+
+const fourthRequest = postData({
+  data: {
+    id: 67890
+  }
+})
+
+fourthRequest
+  .then(data => {
+    console.log('SUCCESS fourthRequest!!!', data)
+  })
+  .catch(error => {
+    if (isCancel(error)) {
+      console.log('Request aborted fourthRequest')
+    } else {
+      console.error(error)
+    }
+  })
+
+// The `thirdRequest` gets aborted
 ```
 
 ## How to use - get
