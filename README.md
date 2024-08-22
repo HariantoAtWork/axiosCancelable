@@ -10,7 +10,7 @@ Axios with custom CancelablePromise cancelation
 ## How to use - factoryAxioxCancelable
 
 ```js
-import { factoryAxioxCancelable, isCancel } from 'axioscancelable'
+import { factoryAxioxCancelable, isCancel } from '@harianto/axioscancelable'
 ```
 
 ### method: GET
@@ -116,7 +116,7 @@ fourthRequest
 ## How to use - axiosCancelable
 
 ```js
-import axiosCancelable, { isCancel } from 'axioscancelable'
+import axiosCancelable, { isCancel } from '@harianto/axioscancelable'
 ```
 
 ### axiosCancelable.get - or get | delete | head | options
@@ -143,7 +143,7 @@ getData('https://api.sylo.space/test/axioscancelable/data', {id: [1,2,3]})
 ### axiosCancelable.post - or post | put | patch
 
 ```js
-import axiosCancelable, { isCancel } from 'axioscancelable'
+import axiosCancelable, { isCancel } from '@harianto/axioscancelable'
 ```
 
 ```js
@@ -174,7 +174,7 @@ postData('https://api.sylo.space/test/axioscancelable/data', {id: [1,2,3]})
 
 
 ```js
-import axiosCancelable, { isCancel } from 'axioscancelable'
+import axiosCancelable, { isCancel } from '@harianto/axioscancelable'
 
 // axiosCancelable.axios(config)
 const axiosData = axiosCancelable.axios()
