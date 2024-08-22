@@ -1,0 +1,10 @@
+# Node dependencies
+**/node_modules
+
+# Misc
+.DS_Store
+.fleet
+.idea
+
+# App
+package-lock.json
