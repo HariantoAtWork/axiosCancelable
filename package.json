@@ -25,7 +25,6 @@
   },
   "homepage": "https://github.com/HariantoAtWork/axiosCancelable#readme",
   "dependencies": {
-    "@harianto/axioscancelable": "^1.0.3",
     "axios": "^1.7.4",
     "query-string": "^9.1.0"
   },
