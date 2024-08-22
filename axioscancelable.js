@@ -41,7 +41,9 @@ export const factoryAxioxCancelable = function (defaultConfig = {}) {
     }
     return new CancelablePromise(function (resolve, reject) {
       this.controller = state.controller = new AbortController()
-      const signal = configRequest.hasOwnProperty('signal')
+      const signal = defaultConfig.hasOwnProperty('signal')
+        ? defaultConfig.signal
+        : configRequest.hasOwnProperty('signal')
         ? configRequest.signal
         : this.controller.signal
 
@@ -66,7 +68,9 @@ const axiosCancelable = {
       }
       return new CancelablePromise(function (resolve, reject) {
         this.controller = state.controller = new AbortController()
-        const signal = configRequest.hasOwnProperty('signal')
+        const signal = defaultConfig.hasOwnProperty('signal')
+          ? defaultConfig.signal
+          : configRequest.hasOwnProperty('signal')
           ? configRequest.signal
           : this.controller.signal
 
@@ -95,7 +99,9 @@ methodsNoData.forEach(method => {
       }
       return new CancelablePromise(function (resolve, reject) {
         this.controller = state.controller = new AbortController()
-        const signal = config.hasOwnProperty('signal')
+        const signal = defaultConfig.hasOwnProperty('signal')
+          ? defaultConfig.signal
+          : config.hasOwnProperty('signal')
           ? config.signal
           : this.controller.signal
 
@@ -118,19 +124,6 @@ methodsNoData.forEach(method => {
 })
 
 methodsWithData.forEach(method => {
-  axiosCancelable[method] = (url, params) =>
-    new Promise((fulfil, reject, onCancel) => {
-      // eslint-disable-line
-      const controller = new AbortController()
-      const signal = controller.signal
-
-      onCancel(() => {
-        controller.abort()
-      })
-
-      return axios[method](url, params, { signal }).then(fulfil).catch(reject)
-    })
-
   axiosCancelable[method] = function (defaultUrl, defaultData, defaultConfig) {
     const state = { controller: new AbortController() }
 
@@ -141,7 +134,9 @@ methodsWithData.forEach(method => {
 
       return new CancelablePromise(function (resolve, reject) {
         this.controller = state.controller = new AbortController()
-        const signal = config.hasOwnProperty('signal')
+        const signal = defaultConfig.hasOwnProperty('signal')
+          ? defaultConfig.signal
+          : config.hasOwnProperty('signal')
           ? config.signal
           : this.controller.signal
 
