@@ -124,7 +124,11 @@ methodsNoData.forEach(method => {
 })
 
 methodsWithData.forEach(method => {
-  axiosCancelable[method] = function (defaultUrl, defaultData, defaultConfig) {
+  axiosCancelable[method] = function (
+    defaultUrl,
+    defaultData = {},
+    defaultConfig = {}
+  ) {
     const state = { controller: new AbortController() }
 
     const request = (url, data = {}, config = {}) => {
