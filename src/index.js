@@ -112,10 +112,9 @@ methodsNoData.forEach(method => {
           paramsSerializer: stringify
         }
 
-        axios[method](defaultUrl ? defaultUrl : url, newConfig).then(
-          resolve,
-          reject
-        )
+        axios[method](defaultUrl ? defaultUrl : url, newConfig)
+          .then(({ data }) => data)
+          .then(resolve, reject)
       })
     }
 
@@ -150,10 +149,9 @@ methodsWithData.forEach(method => {
           signal
         }
 
-        axios[method](defaultUrl ? defaultUrl : url, newConfig).then(
-          resolve,
-          reject
-        )
+        axios[method](defaultUrl ? defaultUrl : url, newConfig)
+          .then(({ data }) => data)
+          .then(resolve, reject)
       })
     }
 
