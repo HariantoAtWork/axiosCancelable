@@ -144,13 +144,11 @@ methodsWithData.forEach(method => {
           ? config.signal
           : this.controller.signal;
 
-        const newConfig = {
-          data: Object.assign({}, defaultData, data),
-          ...Object.assign({}, defaultConfig, config),
-          signal
-        };
+        const newUrl = defaultUrl ? defaultUrl : url;
+        const newData = Object.assign({}, defaultData, data);
+        const newConfig = Object.assign({}, defaultConfig, config, signal);
 
-        axios[method](defaultUrl ? defaultUrl : url, newConfig)
+        axios[method](newUrl, newData, newConfig)
           .then(({ data }) => data)
           .then(resolve, reject);
       })
