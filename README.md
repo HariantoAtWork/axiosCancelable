@@ -21,6 +21,7 @@ const getDefaultConfig = {
   url: 'https://api.sylo.space/test/axioscancelable/data'
 }
 
+// Factory (Instantiate)
 const getData = factoryAxioxCancelable(getDefaultConfig)
 
 // See Axios Config: params
@@ -71,6 +72,7 @@ const postDefaultConfig = {
   url: 'https://api.sylo.space/test/axioscancelable/data'
 }
 
+// Factoried (Instantiate)
 const postData = factoryAxioxCancelable(postDefaultConfig)
 
 // See Axios Config: data
@@ -122,6 +124,7 @@ import axiosCancelable, { isCancel } from '@harianto/axioscancelable'
 ### axiosCancelable.get - or get | delete | head | options
 
 ```js
+// Factoried (Instantiate) with .get()
 // axiosCancelable.get(url, [params], [config])
 const getData = axiosCancelable.get()
 
@@ -147,6 +150,7 @@ import axiosCancelable, { isCancel } from '@harianto/axioscancelable'
 ```
 
 ```js
+// Factoried (Instantiate) with .post()
 // axiosCancelable.post(url, data, [config])
 const postData = axiosCancelable.post()
 
@@ -176,6 +180,7 @@ postData('https://api.sylo.space/test/axioscancelable/data', {id: [1,2,3]})
 ```js
 import axiosCancelable, { isCancel } from '@harianto/axioscancelable'
 
+// Factoried (Instantiate) with .axios()
 // axiosCancelable.axios(config)
 const axiosData = axiosCancelable.axios()
 ```
@@ -199,7 +204,7 @@ axiosData({
 })
   .then(
     response => response.data.pipe(fs.createWriteStream("ada_lovelace.jpg"))
-  ) // previous progressing queue will be canceled
+  ) // previous request (1st request) will be canceled
 ```
 
 > `responseType: 'stream'` not yet tested
@@ -207,6 +212,7 @@ axiosData({
 ### Getting Data Response
 
 ```js
+// Factoried (Instantiate) with .axios()
 const axiosRequest = axiosCancelable.axios()
 // 1st request
 axiosRequest({

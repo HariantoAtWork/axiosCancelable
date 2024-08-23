@@ -2,7 +2,7 @@ import {
   CancelablePromise,
   factoryAxioxCancelable,
   isCancel
-} from './src/axioscancelable.js'
+} from '../src/index.js'
 
 // When you create a new CancelablePromise:
 const promise = new CancelablePromise(function (resolve, reject) {
