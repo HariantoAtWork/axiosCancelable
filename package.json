@@ -10,8 +10,7 @@
   "scripts": {
     "build": "rollup src/index.js --file index.js --format es",
     "babel": "babel src -d dist",
-    "prepublish": "npm run build",
-    "npm-publish": "npm publish --access public"
+    "npm-publish": "npm run build && npm publish --access public"
   },
   "repository": {
     "type": "git",
