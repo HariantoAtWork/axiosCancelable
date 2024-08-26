@@ -34,7 +34,7 @@ class CancelablePromise {
   }
 }
 
-const factoryAxioxCancelable = function (defaultConfig = {}) {
+const factoryAxiosCancelable = function (defaultConfig = {}) {
   const state = { controller: new AbortController() };
 
   const request = (configRequest = {}) => {
@@ -158,4 +158,4 @@ methodsWithData.forEach(method => {
   };
 });
 
-export { CancelablePromise, axiosCancelable as default, factoryAxioxCancelable, isCancel };
+export { CancelablePromise, axiosCancelable as default, factoryAxiosCancelable, isCancel };

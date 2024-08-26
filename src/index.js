@@ -33,7 +33,7 @@ export class CancelablePromise {
   }
 }
 
-export const factoryAxioxCancelable = function (defaultConfig = {}) {
+export const factoryAxiosCancelable = function (defaultConfig = {}) {
   const state = { controller: new AbortController() }
 
   const request = (configRequest = {}) => {

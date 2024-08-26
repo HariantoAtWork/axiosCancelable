@@ -7,10 +7,10 @@ Axios with custom CancelablePromise cancelation
 
 > This is ESM variant from NPM: axiosbluebird.
 
-## How to use - factoryAxioxCancelable
+## How to use - factoryAxiosCancelable
 
 ```js
-import { factoryAxioxCancelable, isCancel } from '@harianto/axioscancelable'
+import { factoryAxiosCancelable, isCancel } from '@harianto/axioscancelable'
 ```
 
 ### method: GET
@@ -22,7 +22,7 @@ const getDefaultConfig = {
 }
 
 // Factory (Instantiate)
-const getData = factoryAxioxCancelable(getDefaultConfig)
+const getData = factoryAxiosCancelable(getDefaultConfig)
 
 // See Axios Config: params
 const firstRequest = getData({
@@ -73,7 +73,7 @@ const postDefaultConfig = {
 }
 
 // Factoried (Instantiate)
-const postData = factoryAxioxCancelable(postDefaultConfig)
+const postData = factoryAxiosCancelable(postDefaultConfig)
 
 // See Axios Config: data
 const thirdRequest = postData({
@@ -235,18 +235,18 @@ axiosRequest({
 
 ## Examples
 
-### Have an ajax.js file - factoryAxioxCancelable
+### Have an ajax.js file - factoryAxiosCancelable
 
 ```js
-import { factoryAxioxCancelable } from '@harianto/axioscancelable'
+import { factoryAxiosCancelable } from '@harianto/axioscancelable'
 export { isCancel } from '@harianto/axioscancelable'
 
 const instances = {
-  getProfile: factoryAxioxCancelable({ method: 'get', url: '/api/profile' }),
-  postProfile: factoryAxioxCancelable({ method: 'post', url: '/api/profile' }),
-  postVerifytoken: factoryAxioxCancelable({ method: 'post', url: '/api/verifytoken' }),
-  postRegister: factoryAxioxCancelable({ method: 'post', url: '/api/register' }),
-  postLogin: factoryAxioxCancelable({ method: 'post', url: '/api/login' })
+  getProfile: factoryAxiosCancelable({ method: 'get', url: '/api/profile' }),
+  postProfile: factoryAxiosCancelable({ method: 'post', url: '/api/profile' }),
+  postVerifytoken: factoryAxiosCancelable({ method: 'post', url: '/api/verifytoken' }),
+  postRegister: factoryAxiosCancelable({ method: 'post', url: '/api/register' }),
+  postLogin: factoryAxiosCancelable({ method: 'post', url: '/api/login' })
 }
 const onCanceled = error => {
   if (isCancel(error)) {
