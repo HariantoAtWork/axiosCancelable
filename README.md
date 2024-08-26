@@ -233,6 +233,74 @@ axiosRequest({
   })
 ```
 
+## Examples
+
+### Have an ajax.js file - factoryAxioxCancelable
+
+```js
+import { factoryAxioxCancelable } from '@harianto/axioscancelable'
+export { isCancel } from '@harianto/axioscancelable'
+
+const instances = {
+  getProfile: factoryAxioxCancelable({ method: 'get', url: '/api/profile' }),
+  postProfile: factoryAxioxCancelable({ method: 'post', url: '/api/profile' }),
+  postVerifytoken: factoryAxioxCancelable({ method: 'post', url: '/api/verifytoken' }),
+  postRegister: factoryAxioxCancelable({ method: 'post', url: '/api/register' }),
+  postLogin: factoryAxioxCancelable({ method: 'post', url: '/api/login' })
+}
+const onCanceled = error => {
+  if (isCancel(error)) {
+    console.log('Canceled')
+  } else {
+    throw error
+  }
+}
+
+export const getProfile = (params = {}) =>
+  instances.getProfile({params}).catch(onCanceled)
+export const postProfile = (data = {}) =>
+  instances.postProfile({data}).catch(onCanceled)
+export const postVerifytoken = (data = {}) =>
+  instances.postVerifytoken({data}).catch(onCanceled)
+export const postRegister = (data = {}) =>
+  instances.postRegister({data}).catch(onCanceled)
+export const postLogin = (data = {}) =>
+  instances.postLogin({data}).catch(onCanceled)
+```
+
+### Have an ajax.js file - axiosCancelable
+
+```js
+import axiosCancelable from '@harianto/axioscancelable'
+export { isCancel } from '@harianto/axioscancelable'
+
+const instances = {
+  getProfile: axiosCancelable.get('/api/profile'),
+  postProfile: axiosCancelable.post('/api/profile'),
+  postVerifytoken: axiosCancelable.post('/api/verifytoken'),
+  postRegister: axiosCancelable.post('/api/register'),
+  postLogin: axiosCancelable.post('/api/login')
+}
+const onCanceled = error => {
+  if (isCancel(error)) {
+    console.log('Canceled')
+  } else {
+    throw error
+  }
+}
+
+export const getProfile = (params = {}) =>
+  instances.getProfile(null, params).catch(onCanceled)
+export const postProfile = (data = {}) =>
+  instances.postProfile(null, data).catch(onCanceled)
+export const postVerifytoken = (data = {}) =>
+  instances.postVerifytoken(null, data).catch(onCanceled)
+export const postRegister = (data = {}) =>
+  instances.postRegister(null, data).catch(onCanceled)
+export const postLogin = (data = {}) =>
+  instances.postLogin(null, data).catch(onCanceled)
+```
+
 
 ## Methods
 
