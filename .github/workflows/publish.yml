@@ -41,6 +41,15 @@ jobs:
       - name: Build
         run: pnpm run build
         
+      - name: Check NPM token
+        run: |
+          if [ -z "${{ secrets.NPM_TOKEN }}" ]; then
+            echo "NPM_TOKEN is not set"
+            exit 1
+          else
+            echo "NPM_TOKEN is set"
+          fi
+        
       - name: Publish to NPM
         run: pnpm publish --access public --no-git-checks
         env:
