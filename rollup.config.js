@@ -2,7 +2,6 @@
 import resolve from '@rollup/plugin-node-resolve' // Resolves node modules in node_modules
 import commonjs from '@rollup/plugin-commonjs' // Converts CommonJS modules to ES6 for Rollup
 import terser from '@rollup/plugin-terser' // Minifies the output bundle
-import { babel } from '@rollup/plugin-babel'
 import { readFileSync } from 'fs'
 import { fileURLToPath } from 'url'
 import { dirname, resolve as resolvePath } from 'path'
@@ -38,7 +37,7 @@ export default {
   output: [
     {
       // ES Module format for modern environments
-      file: 'dist/index.js', // Output file path from package.json
+      file: pkg.main,
       format: 'es', // Output format
       exports: 'named', // Export named exports
       banner, // Add banner comment to the output
@@ -46,7 +45,7 @@ export default {
     },
     {
       // UMD (Universal Module Definition) format for browser and Node.js
-      file: 'dist/index.min.js', // Output file path from package.json
+      file: pkg.unpkg,
       format: 'umd', // Output format
       name: 'AxiosCancelable', // Global variable name for UMD
       exports: 'named', // Export named exports
@@ -70,12 +69,6 @@ export default {
 
     // Convert CommonJS modules to ES6
     commonjs(),
-
-    // Process ES6 code with babel
-    babel({
-      babelHelpers: 'bundled',
-      exclude: 'node_modules/**'
-    }),
 
     // Minify the output
     terser({
