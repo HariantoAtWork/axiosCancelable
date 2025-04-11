@@ -2,8 +2,6 @@ name: Publish to NPM
 
 on:
   push:
-    branches:
-      - main
     tags:
       - 'v?[0-9]+.[0-9]+.[0-9]+'
       - 'v?[0-9]+.[0-9]+.[0-9]+-*'
