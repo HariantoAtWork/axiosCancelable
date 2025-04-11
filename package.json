@@ -1,6 +1,6 @@
 {
   "name": "@harianto/axioscancelable",
-  "version": "1.4.4",
+  "version": "1.4.5",
   "description": "Axios with CancelablePromise cancelation",
   "type": "module",
   "main": "dist/index.esm.js",
