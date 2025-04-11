@@ -1,5 +1,7 @@
 # AxiosCancelable
 
+TEST
+
 Axios with custom CancelablePromise cancelation
 
 > *Node*: v20.16.0
