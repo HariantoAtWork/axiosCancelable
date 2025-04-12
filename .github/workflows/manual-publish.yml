@@ -48,6 +48,12 @@ jobs:
         run: pnpm build
 
       - name: Publish to NPM
-        run: pnpm publish --access public --no-git-checks
+        run: |
+          if pnpm publish --access public --no-git-checks; then
+            echo "Published successfully"
+          else
+            echo "First publish failed, trying with force..."
+            pnpm publish --access public --no-git-checks --force
+          fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} 
