@@ -1,0 +1,50 @@
+name: Check Version
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    outputs:
+      is_version: ${{ steps.check_version.outputs.is_version }}
+      version: ${{ steps.check_version.outputs.version }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get commit message
+        id: commit
+        run: |
+          COMMIT_MSG=$(git log -1 --pretty=%B)
+          echo "commit_message=$COMMIT_MSG" >> $GITHUB_OUTPUT
+          echo "Commit message: $COMMIT_MSG"
+
+      - name: Check if commit message is a version number
+        id: check_version
+        run: |
+          if [[ "${{ steps.commit.outputs.commit_message }}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "is_version=true" >> $GITHUB_OUTPUT
+            echo "version=${{ steps.commit.outputs.commit_message }}" >> $GITHUB_OUTPUT
+            echo "Commit message is a version number"
+          else
+            echo "is_version=false" >> $GITHUB_OUTPUT
+            echo "version=" >> $GITHUB_OUTPUT
+            echo "Commit message is not a version number"
+          fi
+
+  trigger-release:
+    needs: check-version
+    if: needs.check-version.outputs.is_version == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Release Workflow
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          event-type: release-triggered
+          client-payload: '{"version": "${{ needs.check-version.outputs.version }}"}' 
